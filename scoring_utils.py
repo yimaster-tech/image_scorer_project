@@ -27,6 +27,7 @@ clip_processor = CLIPProcessor.from_pretrained(local_model_path)
 clip_model_aes, preprocess_aes = clip.load("./models/ViT-L-14.pt", device=DEVICE)  # CLIP 模型
 aesthetic_model = torch.nn.Linear(768, 1)  # 美学评分模型
 aesthetic_model.load_state_dict(torch.load("./models/sa_0_4_vit_l_14_linear.pth", map_location=DEVICE))
+aesthetic_model.to(DEVICE)
 aesthetic_model.eval()
 face_app = FaceAnalysis(name="buffalo_l")  # 人脸分析模型
 face_app.prepare(ctx_id=0 if torch.cuda.is_available() else -1)
